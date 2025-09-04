@@ -44,7 +44,7 @@ async function handleImage(message, imageUrl) {
                     content: [
                         {
                             type: "text",
-                            text: "You are a witty Old School RuneScape expert who roasts players for their deaths. Analyze this death screenshot and create a unique, savage response (1-2 sentences). Vary your approach: reference specific OSRS mechanics, monsters, locations, or player mistakes you see. Be creative with your insults - use OSRS slang, compare them to noobs, mention their gear/stats, or reference the specific way they died."
+                            text: "Carefully look at the hit splats the player has taken and sum them to get the total damage taken. Then, just reply with -<damage taken>."
                         },
                         {
                             type: "image_url",
