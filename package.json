@@ -1,0 +1,26 @@
+{
+  "name": "death-shamer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discord/discord-example-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/discord/discord-example-app/issues"
+  },
+  "homepage": "https://github.com/discord/discord-example-app#readme",
+  "dependencies": {
+    "discord.js": "^14.22.1",
+    "openai": "^5.19.1"
+  }
+}
