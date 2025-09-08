@@ -74,7 +74,7 @@ async function handleImage(message, imageUrl) {
                     content: [
                         {
                             type: "text",
-                            text: "Sum all integers inside red or green boxes with white text (hitsplats) in the image. Ignore everything else. If none, return 0. Output only the sum as an integer with no extra text."
+                            text: "Sum all integers inside red or green 'splats' with white text (hitsplats) in the image, do not include integers that are not in a 'splat' and blue. Ignore everything else. If none, return 0. Output only the sum as an integer with no extra text."
                         },
                         {
                             type: "image_url",
