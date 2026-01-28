@@ -45,36 +45,18 @@ async function handleImage(message, imageUrl) {
         const tempPath = path.join(__dirname, 'temp_image.png');
         fs.writeFileSync(tempPath, Buffer.from(imageBuffer));
         
-        const image = sharp(tempPath);
-        const { width, height } = await image.metadata();
-        
-        const centerX = Math.floor(width / 2);
-        const centerY = Math.floor(height / 2);
-        const cropSize = 150;
-        
-        const croppedImagePath = path.join(__dirname, 'cropped_temp.png');
-        
-        await image
-            .extract({
-                left: centerX - cropSize / 2,
-                top: centerY - cropSize / 2,
-                width: cropSize,
-                height: cropSize
-            })
-            .png()
-            .toFile(croppedImagePath);
-        
-        const imageBase64 = fs.readFileSync(croppedImagePath, { encoding: 'base64' });
+        const imageBufferPng = await sharp(tempPath).png().toBuffer();
+        const imageBase64 = imageBufferPng.toString('base64');
         
         const response = await openai.chat.completions.create({
-            model: "gpt-5",
+            model: "gpt-5.2",
             messages: [
                 {
                     role: "user",
                     content: [
                         {
                             type: "text",
-                            text: "Sum all integers inside red or green 'splats' with white text (hitsplats) in the image, do not include integers that are not in a 'splat' and blue. Ignore everything else. If none, return 0. Output only the sum as an integer with no extra text."
+                            text: "Look at the image and figure out what boss (or activity) the player died at. Reply with a short mocking line in this format: \"Hihi, you died at <boss>\". If you can't confidently identify the boss, use a best guess (e.g. \"some random goblin\") rather than asking questions. Output only that one line."
                         },
                         {
                             type: "image_url",
@@ -88,12 +70,11 @@ async function handleImage(message, imageUrl) {
         });
 
         const mockResponse = response.choices[0].message.content;
-        await message.reply(`-${mockResponse}`);
+        await message.reply(mockResponse);
         
         console.log(`Sent mock response: ${mockResponse}`);
         
         fs.unlinkSync(tempPath);
-        fs.unlinkSync(croppedImagePath);
     } catch (error) {
         console.error('Error processing image:', error);
         await message.reply("Couldn't roast you this time, my brain is lagging 🤖");
